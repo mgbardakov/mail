@@ -13,9 +13,8 @@ public class MapSorter implements Sorter {
     public Set<User> getRelevantUsers(List<User> users) {
         var sourceMap = putEmailsToMap(users);
         var rslMap = new HashMap<String, User>();
-        for (Map.Entry<String, String> pair : sourceMap.entrySet()) {
-            var userName = pair.getValue();
-            var email = pair.getKey();
+        for (String email : sourceMap.keySet()) {
+            var userName = sourceMap.get(email);
             if (!rslMap.containsKey(userName)) {
                 rslMap.put(userName, new User(userName));
             }
@@ -41,6 +40,7 @@ public class MapSorter implements Sorter {
       for (String mail : user.getEmails()) {
           if (map.containsKey(mail)) {
               name = map.get(mail);
+              break;
           }
       }
       return name;
